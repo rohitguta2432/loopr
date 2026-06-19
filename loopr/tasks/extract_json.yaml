@@ -1,0 +1,20 @@
+name: extract_contact
+description: >
+  Extract the person's role from a one-line bio and return it as JSON with a
+  single field "role". The role must be lowercase.
+seed_prompt: |
+  Extract info from this bio.
+  {input}
+scorer: json_field
+scorer_config:
+  field: role
+config:
+  budget: 6
+  patience: 2
+  target_score: 1.0
+  temperature: 0.0
+cases:
+  - { input: "Aisha Khan is a backend engineer at a fintech startup.", expected: "backend engineer" }
+  - { input: "Marco runs design for a small SaaS company.", expected: "designer" }
+  - { input: "Dr. Lena Park, a data scientist, leads the ML team.", expected: "data scientist" }
+  - { input: "Sam is the product manager for the payments app.", expected: "product manager" }

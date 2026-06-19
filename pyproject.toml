@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "loopr"
+version = "0.1.0"
+description = "A self-improving prompt-optimization loop: run -> score -> reflect -> rewrite, until it finds the best prompt."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Rohit Raj", email = "rohitgupta2432@gmail.com" }]
+keywords = ["llm", "prompt-optimization", "agents", "self-improving", "gepa", "evals", "ollama"]
+dependencies = [
+    "pyyaml>=6.0",
+]
+
+[project.urls]
+Homepage = "https://rohitraj.tech/agents"
+Repository = "https://github.com/rohitguta2432/loopr"
+
+[project.scripts]
+loopr = "loopr.cli:main"
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0"]
+
+[tool.setuptools.packages.find]
+include = ["loopr*"]
+
+[tool.setuptools.package-data]
+loopr = ["tasks/*.yaml"]

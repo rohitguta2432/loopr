@@ -1,0 +1,21 @@
+name: sentiment
+description: >
+  Classify the sentiment of a short text as exactly one of: positive, negative, neutral.
+# A deliberately under-specified seed prompt - Loopr should discover that it needs
+# to constrain the label set and the output format.
+seed_prompt: |
+  What is the sentiment here?
+  {input}
+scorer: contains
+config:
+  budget: 6
+  patience: 2
+  target_score: 1.0
+  temperature: 0.0
+cases:
+  - { input: "I absolutely love this, best purchase of the year!", expected: positive }
+  - { input: "This is the worst experience I have ever had.", expected: negative }
+  - { input: "The package arrived on Tuesday as scheduled.", expected: neutral }
+  - { input: "Honestly amazing support, they fixed it in minutes.", expected: positive }
+  - { input: "It broke after two days and nobody replied.", expected: negative }
+  - { input: "The meeting is rescheduled to 3pm.", expected: neutral }
