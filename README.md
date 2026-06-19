@@ -22,6 +22,10 @@ diagnosed the missing format constraint, and rewrote the prompt itself to *"retu
 lowercase as a JSON object with a single field 'role'… Example output: {"role": "backend
 engineer"}"* — and hit 100% in one iteration.
 
+Or watch it converge in the browser with `loopr serve`:
+
+![Loopr web UI — watch the loop run, score, reflect, and converge live](docs/screenshot.png)
+
 ---
 
 ## Why this product
@@ -67,10 +71,15 @@ parsed or drops the `{input}` placeholder, Loopr keeps the current prompt).
 pip install -e .            # or: pip install loopr
 ollama serve                # local backend (or set OPENAI_API_KEY / ANTHROPIC_API_KEY)
 
-loopr optimize loopr/tasks/extract_json.yaml      # evolve the prompt
+loopr optimize loopr/tasks/extract_json.yaml      # evolve the prompt (CLI)
 loopr eval     loopr/tasks/sentiment.yaml         # score the seed prompt once
 loopr run      loopr/tasks/sentiment.yaml --input "this is great"
+loopr serve                                       # web UI → http://localhost:8077
 ```
+
+`loopr serve` starts a zero-dependency local web UI (stdlib server + SSE) that streams
+each iteration to the browser as the loop runs against your model — pick a task, hit
+Optimize, and watch the score climb.
 
 `optimize` writes two files to `loopr-out/`: the full iteration **trace** (`*.trace.json`)
 and the winning **prompt** (`*.best_prompt.txt`).

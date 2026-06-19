@@ -1,0 +1,22 @@
+name: intent
+description: >
+  Classify the user's support message as exactly one of: refund, shipping,
+  technical, billing, other. Lowercase, one word, no punctuation.
+# Loose seed - the model will answer in a verbose sentence and fail the exact
+# match, so Loopr must learn to constrain the label set and the output format.
+seed_prompt: |
+  What does this user want?
+  {input}
+scorer: exact
+config:
+  budget: 6
+  patience: 2
+  target_score: 1.0
+  temperature: 0.0
+cases:
+  - { input: "My package never arrived and tracking hasn't updated in a week.", expected: shipping }
+  - { input: "I was charged twice for the same order.", expected: billing }
+  - { input: "The app crashes every time I open the settings page.", expected: technical }
+  - { input: "I want my money back, this product is defective.", expected: refund }
+  - { input: "Do you ship to Canada?", expected: shipping }
+  - { input: "How do I update the credit card on my account?", expected: billing }

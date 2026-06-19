@@ -137,10 +137,22 @@ def build_parser() -> argparse.ArgumentParser:
     p_run.add_argument("--prompt-file", default=None, help="use this prompt instead of the seed")
     p_run.set_defaults(func=cmd_run)
 
+    p_serve = sub.add_parser("serve", help="launch the local web UI (watch the loop run live)")
+    p_serve.add_argument("--host", default="127.0.0.1")
+    p_serve.add_argument("--port", type=int, default=8077)
+    p_serve.set_defaults(func=cmd_serve)
+
     sub.add_parser("version", help="print version").set_defaults(
         func=lambda _a: (print(f"loopr {__version__}"), 0)[1]
     )
     return parser
+
+
+def cmd_serve(args) -> int:
+    from loopr.web import serve
+
+    serve(host=args.host, port=args.port)
+    return 0
 
 
 def main(argv=None) -> int:

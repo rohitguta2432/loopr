@@ -1,0 +1,17 @@
+name: yesno
+description: >
+  Answer the question with exactly 'yes' or 'no' - lowercase, no punctuation,
+  no extra words.
+seed_prompt: |
+  {input}
+scorer: exact
+config:
+  budget: 5
+  patience: 2
+  target_score: 1.0
+  temperature: 0.0
+cases:
+  - { input: "Is the Earth round?", expected: "yes" }
+  - { input: "Is 9 a prime number?", expected: "no" }
+  - { input: "Can humans breathe underwater without equipment?", expected: "no" }
+  - { input: "Is water made of hydrogen and oxygen?", expected: "yes" }
